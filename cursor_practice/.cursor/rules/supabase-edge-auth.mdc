@@ -1,0 +1,31 @@
+# Supabase Edge Functions & Auth (Quick Reference)
+
+- Pass the `Authorization` header from the request to the Supabase client to set the Auth context per request.
+- Extract the JWT token from the `Authorization` header and use `getUser(token)` to fetch the user object.
+- Example (inside Edge Function):
+
+```ts
+import { createClient } from 'npm:@supabase/supabase-js@2'
+
+Deno.serve(async (req: Request) => {
+  const supabaseClient = createClient(
+    Deno.env.get('SUPABASE_URL') ?? '',
+    Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+    {
+      global: {
+        headers: { Authorization: req.headers.get('Authorization')! },
+      },
+    }
+  );
+  const authHeader = req.headers.get('Authorization')!;
+  const token = authHeader.replace('Bearer ', '');
+  const { data } = await supabaseClient.auth.getUser(token);
+  // ...
+});
+```
+- All queries after client initialization will enforce Row Level Security (RLS) automatically.
+- Docs: https://supabase.com/docs/guides/functions/auth
+description:
+globs:
+alwaysApply: false
+---

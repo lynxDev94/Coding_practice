@@ -1,0 +1,14 @@
+# Supabase Edge Functions
+
+- Edge Functions are server-side TypeScript functions deployed globally on the Supabase Edge network.
+- Use for custom backend logic, webhooks, API endpoints, and more.
+- Deploy with `supabase functions deploy <name>`.
+- Trigger via HTTP requests: `https://<project-ref>.functions.supabase.co/<function-name>`
+- Environment variables can be set via the Supabase dashboard or CLI.
+- Functions run in a secure, isolated environment with low cold start times.
+- Use the Supabase CLI to create, test, and deploy functions.
+- Docs: https://supabase.com/docs/guides/functions
+description:
+globs:
+alwaysApply: false
+---
